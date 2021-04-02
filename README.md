@@ -2,7 +2,11 @@
 
 POC implementation for the UCI Protocol. 
 
-This is project is work in progresa and subject to change.
+This project is work in progress.
+
+The API is subject to change.
+
+`stockfish` is installed as a command-line tool (for MAC: `brew install stockfish`)
 
 Example:
 
