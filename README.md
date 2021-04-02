@@ -12,7 +12,7 @@ public static void main(String[] args) {
     var uci = new UCI();
     try {
         uci.start(STOCKFISH);
-        uci.uci(3000l);
+        uci.uci(timeout);
         uci.setoption("MultiPV", 10, timeout);
         var result = uci.go(20, 1000l, timeout);
         //Showing best moves
