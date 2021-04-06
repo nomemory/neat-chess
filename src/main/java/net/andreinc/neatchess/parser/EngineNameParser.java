@@ -1,25 +1,21 @@
 package net.andreinc.neatchess.parser;
 
-import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 
-public class EngineNameParser {
-
-    private static class EngineNameParserHolder {
-        public static final EngineNameParser instance = new EngineNameParser();
-    }
-
-    public static EngineNameParser getInstance() {
-        return EngineNameParserHolder.instance;
-    }
+public class EngineNameParser extends AbstractParser<String> {
 
     private static String NAME_REGEX = "(id name) ([\\w].*)";
-    private static Pattern NAME_PATTERN = Pattern.compile(NAME_REGEX);
 
-    public String parse(String line) {
-        var matcher = NAME_PATTERN.matcher(line);
-        if (!matcher.matches()) {
-            throw new IllegalArgumentException("Invalid name line: " + line);
-        }
+    private EngineNameParser(String regex) {
+        super(regex);
+    }
+
+    public EngineNameParser() {
+        this(NAME_REGEX);
+    }
+
+    @Override
+    protected String doParse(String line, Matcher matcher) {
         return matcher.group(2);
     }
 }

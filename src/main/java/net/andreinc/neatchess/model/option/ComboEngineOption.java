@@ -17,4 +17,13 @@ public class ComboEngineOption extends EngineOption<String> {
     public void setPossibleOptions(Set<String> possibleOptions) {
         this.possibleOptions = possibleOptions;
     }
+
+    @Override
+    public String toString() {
+        return "ComboEngineOption{" +
+                "possibleOptions=" + possibleOptions +
+                ", name='" + name + '\'' +
+                ", defaultValue=" + defaultValue +
+                '}';
+    }
 }

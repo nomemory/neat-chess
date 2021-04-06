@@ -22,4 +22,14 @@ public class SpinEngineOption extends EngineOption<Integer> {
     public Integer getMax() {
         return max;
     }
+
+    @Override
+    public String toString() {
+        return "SpinEngineOption{" +
+                "name='" + name + '\'' +
+                ", defaultValue=" + defaultValue +
+                ", min=" + min +
+                ", max=" + max +
+                '}';
+    }
 }
