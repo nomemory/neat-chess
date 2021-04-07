@@ -3,12 +3,12 @@ package net.andreinc.neatchess.client;
 import net.andreinc.neatchess.client.processor.AnalysisProcessor;
 import net.andreinc.neatchess.client.processor.BestMoveProcessor;
 import net.andreinc.neatchess.client.processor.EngineInfoProcessor;
+import net.andreinc.neatchess.exception.UCIRuntimeException;
 import net.andreinc.neatchess.exception.UCITimeoutException;
 import net.andreinc.neatchess.exception.UCIUnknownCommandException;
 import net.andreinc.neatchess.model.Analysis;
 import net.andreinc.neatchess.model.BestMove;
 import net.andreinc.neatchess.model.EngineInfo;
-import net.andreinc.neatchess.parser.BestMoveParser;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -16,10 +16,12 @@ import java.util.List;
 import java.util.concurrent.*;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.regex.Pattern;
 
 import static java.lang.String.format;
 import static java.util.concurrent.CompletableFuture.supplyAsync;
 import static java.util.function.Function.identity;
+import static net.andreinc.neatchess.client.breaks.Break.breakOn;
 
 public class UCI {
 
@@ -27,14 +29,9 @@ public class UCI {
     private static final long DEFAULT_TIMEOUT_VALUE = 60_000l;
 
     // Processors
-    public static final BestMoveProcessor bestMoveProcessor = new BestMoveProcessor();
-    public static final AnalysisProcessor analysisProcessor = new AnalysisProcessor();
-    public static final EngineInfoProcessor engineInfoProcessor = new EngineInfoProcessor();
-
-    // Breaks
-    public static final Predicate<String> BEST_MOVE_BREAK = s -> s.startsWith("bestmove");
-    public static final Predicate<String> READY_OK_BREAK = s->s.startsWith("readyok");
-    public static final Predicate<String> UCI_OK_BREAK = s -> s.startsWith("uciok");
+    public static final BestMoveProcessor bestMove = new BestMoveProcessor();
+    public static final AnalysisProcessor analysis = new AnalysisProcessor();
+    public static final EngineInfoProcessor engineInfo = new EngineInfoProcessor();
 
     private final long defaultTimeout;
 
@@ -113,7 +110,10 @@ public class UCI {
             response = responseFuture.get(timeout, TimeUnit.MILLISECONDS);
         } catch (TimeoutException e) {
             response.setException(new UCITimeoutException(e));
-        } finally {
+        } catch (Exception e ) {
+            response.setException(new UCIRuntimeException(e));
+        }
+        finally {
             return response;
         }
 
@@ -124,19 +124,19 @@ public class UCI {
     }
 
     public UCIResponse<EngineInfo> getEngineInfo() {
-        return command("uci", engineInfoProcessor::process, UCI_OK_BREAK, defaultTimeout);
+        return command("uci", engineInfo::process, breakOn("readyok"), defaultTimeout);
     }
 
     public UCIResponse<List<String>> uciNewGame(long timeout) {
-        return command("ucinewgame", identity(), READY_OK_BREAK, timeout);
+        return command("ucinewgame", identity(), breakOn("readyok"), timeout);
     }
 
     public UCIResponse<List<String>> uciNewGame() {
-        return command("ucinewgame", identity(), READY_OK_BREAK, defaultTimeout);
+        return command("ucinewgame", identity(), breakOn("readyok"), defaultTimeout);
     }
 
     public UCIResponse<List<String>> setOption(String optionName, String value, long timeout) {
-        return command(format("setoption name %s value %s", optionName, value), identity(), READY_OK_BREAK, timeout);
+        return command(format("setoption name %s value %s", optionName, value), identity(), breakOn("readyok"), timeout);
     }
 
     public UCIResponse<List<String>> setOption(String optionName, String value) {
@@ -144,7 +144,7 @@ public class UCI {
     }
 
     public UCIResponse<List<String>> positionFen(String fen, long timeout) {
-        return command(format("position fen %", fen), identity(), READY_OK_BREAK, timeout);
+        return command(format("position fen %", fen), identity(), breakOn("readyok"), timeout);
     }
 
     public UCIResponse<List<String>> positionFen(String fen) {
@@ -152,7 +152,7 @@ public class UCI {
     }
 
     public UCIResponse<BestMove> bestMove(int depth, long timeout) {
-        return command(format("go bestmove depth %d", depth), new BestMoveProcessor()::process, BEST_MOVE_BREAK, timeout);
+        return command(format("go bestmove depth %d", depth), bestMove::process, breakOn("bestmove"), timeout);
     }
 
     public UCIResponse<BestMove> bestMove(int depth) {
@@ -160,7 +160,7 @@ public class UCI {
     }
 
     public UCIResponse<BestMove> bestMove(long moveTime, long timeout) {
-        return command(format("go bestmove movetime %d", moveTime), bestMoveProcessor::process, BEST_MOVE_BREAK, timeout);
+        return command(format("go bestmove movetime %d", moveTime), bestMove::process, breakOn("bestmove"), timeout);
     }
 
     public UCIResponse<BestMove> bestMove(long moveTime) {
@@ -168,7 +168,7 @@ public class UCI {
     }
 
     public UCIResponse<Analysis> analysis(long moveTime, long timeout) {
-        return null;
+        return command(format("go movetime %d", moveTime), analysis::process, breakOn("bestmove"), timeout);
     }
 
     public UCIResponse<Analysis> analysis(long moveTime) {
@@ -176,7 +176,7 @@ public class UCI {
     }
 
     public UCIResponse<Analysis> analysis(int depth, long timeout) {
-        return null;
+        return command(format("go depth %d", depth), analysis::process, breakOn("bestmove"), timeout);
     }
 
     public UCIResponse<Analysis> analysis(int depth) {
@@ -187,6 +187,6 @@ public class UCI {
         var uci = new UCI();
         uci.start(STOCKFISH);
         uci.setOption("MultiPV", "10");
-        System.out.println(uci.bestMove(24, 60000l));
+        System.out.println(uci.analysis(10));
     }
 }

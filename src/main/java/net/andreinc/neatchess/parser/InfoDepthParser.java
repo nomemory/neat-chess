@@ -5,7 +5,7 @@ import java.util.regex.Matcher;
 
 public class InfoDepthParser extends AbstractParser<Move> {
 
-    public static final String INFO_DEPTH_REGEX = "info\\sdepth\\s[\\w]*\\sseldepth\\s[\\w]*\\smultipv\\s([\\w]*)\\sscore\\scp\\s([\\-\\w]*)[\\s\\w]*pv\\s([\\w]*)\\s([\\s\\w]*)";
+    public static final String INFO_DEPTH_REGEX = "info depth [\\w]* seldepth [\\w]*\\smultipv ([\\w]*) score cp ([\\-\\w]*)[\\s\\w]*pv ([\\w]*)\\s*([\\s\\w]*)";
 
     private InfoDepthParser(String regex) {
         super(regex);
