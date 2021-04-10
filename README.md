@@ -104,18 +104,6 @@ Output:
 ```
 Engine name:Stockfish 13
 Supported engine options:
-	Slow Mover
-		SpinEngineOption{name='Slow Mover', defaultValue=100, min=10, max=1000}
-	SyzygyProbeDepth
-		SpinEngineOption{name='SyzygyProbeDepth', defaultValue=1, min=1, max=100}
-	Analysis Contempt
-		ComboEngineOption{possibleOptions=null, name='Analysis Contempt', defaultValue=Both}
-	nodestime
-		SpinEngineOption{name='nodestime', defaultValue=0, min=0, max=10000}
-	Syzygy50MoveRule
-		CheckEngineOption{name='Syzygy50MoveRule', defaultValue=true}
-	SyzygyPath
-		StringEngineOption{name='SyzygyPath', defaultValue=<empty>}
 	Hash
 		SpinEngineOption{name='Hash', defaultValue=16, min=1, max=33554432}
 	Move Overhead
@@ -128,28 +116,7 @@ Supported engine options:
 		SpinEngineOption{name='Threads', defaultValue=1, min=1, max=512}
 	MultiPV
 		SpinEngineOption{name='MultiPV', defaultValue=1, min=1, max=500}
-	UCI_Chess960
-		CheckEngineOption{name='UCI_Chess960', defaultValue=false}
-	Ponder
-		CheckEngineOption{name='Ponder', defaultValue=false}
-	EvalFile
-		StringEngineOption{name='EvalFile', defaultValue=nn-62ef826d1a6d.nnue}
-	UCI_ShowWDL
-		CheckEngineOption{name='UCI_ShowWDL', defaultValue=false}
-	UCI_Elo
-		SpinEngineOption{name='UCI_Elo', defaultValue=1350, min=1350, max=2850}
-	Debug Log File
-		StringEngineOption{name='Debug Log File', defaultValue=}
-	Skill Level
-		SpinEngineOption{name='Skill Level', defaultValue=20, min=0, max=20}
-	Contempt
-		SpinEngineOption{name='Contempt', defaultValue=24, min=-100, max=100}
-	Use NNUE
-		CheckEngineOption{name='Use NNUE', defaultValue=true}
-	Clear Hash
-		ButtonEngineOption{name='Clear Hash', defaultValue=}
-	SyzygyProbeLimit
-		SpinEngineOption{name='SyzygyProbeLimit', defaultValue=7, min=0, max=7}
+/// and so on
 ```
 
 ## Setting an option
@@ -169,9 +136,15 @@ uci.close();
 
 ## Getting the best move for a position
 
-If you use the engine to analyse various positions that are not part of the same game, it's recommended to call the `uciNewGame()` method first before so that the "engine" clean it's cache.
+If you plan using the engine to analyse various positions that are not part of the same game, it's recommended to call the `uciNewGame()` first.
 
 An UCI engine understands [FEN notations](https://en.wikipedia.org/wiki/Forsyth%E2%80%93Edwards_Notation), so the method to make the engine aware of the position he needs to analyse is: 
 - `UCIResponse<List<String>> positionFen(String fen, long timeout)`
 - `UCIResponse<List<String>> positionFen(String fen)`
+
+After the position has been set on the board, to retrieve the best move:
+- `UCIResponse<BestMove> bestMove(int depth, long timeout)` - to analyse for a given depth (e.g.: 18 moves deep);
+- `UCIResponse<BestMove> bestMove(int depth)`;
+- `UCIResponse<BestMove> bestMove(long moveTime, long timeout)` - to analyse for a fixed amount of time (e.g.: 10000l - 10 seconds);
+- `UCIResponse<BestMove> bestMove(long moveTime)`;
 
