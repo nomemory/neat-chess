@@ -57,3 +57,11 @@ if (response.succes()) {
   // do something with the result
 }
 ```
+
+An `UCIResponse<T>` can only throw a `UCIRuntimeException`. This class has the following sub-types:
+- `UCIExecutionException` - when the `Thread` executing the command fails;
+- `UCIInterruptedException`- when the `Thread` executing the command fails;
+- `UCITimeoutException` - when `Thread` exeucuting the command timeouts;
+- `UCIUncheckedIOException` - when the communication with the engine process fails;
+- `UCIUnknownCommandException` - when the server doesn't understand the command the client has sent;
+- `UCIParsingException` - when the engine sends output that the client doesn't understand;
