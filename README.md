@@ -197,3 +197,47 @@ The corresponding FEN for the position is:
 ```
 r1bqkb1r/2pp1ppp/p1n2n2/1p2p3/4P3/1B3N2/PPPP1PPP/RNBQK2R w KQkq - 2 6
 ```
+
+And in order to get the 10 best continuations, the code is:
+
+```java
+var uci = new UCI();
+uci.startStockfish();
+uci.setOption("MultiPV", "10");
+
+uci.uciNewGame();
+uci.positionFen("r1bqkb1r/2pp1ppp/p1n2n2/1p2p3/4P3/1B3N2/PPPP1PPP/RNBQK2R w KQkq - 2 6");
+UCIResponse<Analysis> response = uci.analysis(18);
+var analysis = response.getResultOrThrow();
+
+// Best move
+System.out.println("Best move: " + analysis.getBestMove());
+System.out.println("Is Draw: " + analysis.isDraw());
+System.out.println("Is Mate: " + analysis.isMate());
+
+// Possible best moves
+var moves = analysis.getAllMoves();
+moves.forEach((idx, move) -> {
+    System.out.println("\t" + move);
+});
+
+uci.close();
+```
+
+The output:
+
+```
+Best move: 
+	Move{lan='e1g1', strength=0.6, pv=1, depth=18, continuation=[c8b7, d2d3, f8c5, b1c3, ...]}
+Best moves:
+	Move{lan='e1g1', strength=0.6, pv=1, depth=18, continuation=[c8b7, d2d3, f8c5, b1c3, ...]}
+	Move{lan='d2d4', strength=0.55, pv=2, depth=18, continuation=[d7d6, c2c3, f8e7, e1g1, ...]}
+	Move{lan='a2a4', strength=0.52, pv=3, depth=18, continuation=[c8b7, d2d3, b5b4, b1d2, ...]}
+	Move{lan='b1c3', strength=0.36, pv=4, depth=18, continuation=[f8e7, d2d3, d7d6, a2a4, ...]}
+	Move{lan='d2d3', strength=0.26, pv=5, depth=18, continuation=[f8c5, b1c3, d7d6, c1g5, ...]}
+	Move{lan='d1e2', strength=-0.02, pv=6, depth=18, continuation=[f8c5, a2a4, a8b8, a4b5, ...]}
+	Move{lan='c2c3', strength=-0.50, pv=7, depth=18, continuation=[f6e4, e1g1, d7d5, f1e1, ...]}
+	Move{lan='b3d5', strength=-0.57, pv=8, depth=18, continuation=[f6d5, e4d5, c6d4, f3d4, ...]}
+	Move{lan='h2h3', strength=-0.63, pv=9, depth=18, continuation=[f6e4, e1g1, d7d5, b1c3, ...]}
+	Move{lan='f3g5', strength=-0.7, pv=10, depth=18, continuation=[d7d5, d2d3, c6d4, e4d5, ...]}
+```
