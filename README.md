@@ -148,3 +148,6 @@ After the position has been set on the board, to retrieve the best move:
 - `UCIResponse<BestMove> bestMove(long moveTime, long timeout)` - to analyse for a fixed amount of time (e.g.: 10000l - 10 seconds);
 - `UCIResponse<BestMove> bestMove(long moveTime)`;
 
+Let's take the example the following position:
+
+<img src="https://github.com/nomemory/neat-chess/blob/main/assets/position01.png"/>
