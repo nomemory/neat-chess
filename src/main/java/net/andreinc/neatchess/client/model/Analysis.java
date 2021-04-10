@@ -8,13 +8,16 @@ public class Analysis {
 
     public boolean isMate = false;
 
+    public boolean isDraw = false;
+
     public Analysis(Map<Integer, Move> moves) {
         this.moves = moves;
     }
 
-    public Analysis(Map<Integer, Move> moves, boolean isMate) {
+    public Analysis(Map<Integer, Move> moves, boolean isMate, boolean isDraw) {
         this(moves);
-        this.isMate = true;
+        this.isMate = isMate;
+        this.isDraw= isDraw;
     }
 
     public Map<Integer, Move> getAllMoves() {
@@ -29,11 +32,20 @@ public class Analysis {
         return moves.get(1);
     }
 
+    public boolean isMate() {
+        return isMate;
+    }
+
+    public boolean isDraw() {
+        return isDraw;
+    }
+
     @Override
     public String toString() {
         return "Analysis{" +
                 "moves=" + moves +
                 ", isMate=" + isMate +
+                ", isDraw=" + isDraw +
                 '}';
     }
 }

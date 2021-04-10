@@ -26,8 +26,16 @@ public class AnalysisProcessor extends UCICommandProcessor<Analysis> {
                             TreeMap::new
                         )
                     );
-        if (map.isEmpty() && list.stream().anyMatch(s -> s.startsWith("info depth 0 score mate 0"))) {
-            return new Analysis(map, true);
+        if (map.isEmpty()) {
+            for(String line : list) {
+                if (line.equals("info depth 0 score cp 0")) {
+                    // is draw
+                    return new Analysis(map, false, true);
+                }
+                if (line.equals("info depth 0 score mate 0")) {
+                    return new Analysis(map, true, false);
+                }
+            }
         }
         return new Analysis(map);
     }
