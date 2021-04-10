@@ -150,4 +150,4 @@ After the position has been set on the board, to retrieve the best move:
 
 Let's take the example the following position:
 
-<img src="https://github.com/nomemory/neat-chess/blob/main/assets/position01.png" style=" width: 30%; height: auto;"/>
+<img src="https://github.com/nomemory/neat-chess/blob/main/assets/position01.png" style="max-width: 30%; max-height: auto;"/>
