@@ -100,6 +100,7 @@ public class UCI {
                 writer.flush();
                 String line = "";
                 while ((line = reader.readLine()) != null) {
+                    System.out.println(line);
                     if (line.contains("Unknown command")) {
                         throw new UCIUnknownCommandException(line);
                     }

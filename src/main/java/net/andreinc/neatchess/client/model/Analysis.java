@@ -6,8 +6,15 @@ public class Analysis {
 
     private final Map<Integer, Move> moves;
 
+    public boolean isMate = false;
+
     public Analysis(Map<Integer, Move> moves) {
         this.moves = moves;
+    }
+
+    public Analysis(Map<Integer, Move> moves, boolean isMate) {
+        this(moves);
+        this.isMate = true;
     }
 
     public Map<Integer, Move> getAllMoves() {
@@ -26,6 +33,7 @@ public class Analysis {
     public String toString() {
         return "Analysis{" +
                 "moves=" + moves +
+                ", isMate=" + isMate +
                 '}';
     }
 }
