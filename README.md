@@ -83,9 +83,11 @@ var uci = new UCI(5000l); // default timeout 5 seconds
 uci.startStockfish();
 UCIResponse<EngineInfo> response = uci.getEngineInfo();
 if (response.success()) {
+
     // Engine name
     EngineInfo engineInfo = response.getResult();
     System.out.println("Engine name:" + engineInfo.getName());
+    
     // Supported engine options
     System.out.println("Supported engine options:");
     Map<String, EngineOption> engineOptions = engineInfo.getOptions();
@@ -152,3 +154,17 @@ Supported engine options:
 
 ## Setting an option
 
+For changing an option of the engine you can use the following methods:
+- `UCIResponse<List<String>> uci.setOption(String optionName, String value, long timeout)`
+- `UCIResponse<List<String>> setOption(String optionName, String value)`
+
+For example, modifying the `MultiPV` option to `10` is as simple as:
+
+```java
+var uci = new UCI(5000l); // default timeout 5 seconds
+uci.startStockfish();
+uci.setOption("MultiPV", "10", 3000l).getResultOrThrow(); // custome timeout 3 seconds
+uci.close();
+```
+
+##
