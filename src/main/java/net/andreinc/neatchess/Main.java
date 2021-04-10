@@ -20,17 +20,12 @@ public class Main {
     public static void main(String[] args) {
         var uci = new UCI(5000l); // default timeout 5 seconds
         uci.startStockfish();
-
-        // Setting the MultiPV to 10 so that engine returns the 10 best lines
-        uci.setOption("MultiPV", "10", 3000l).getResultOrThrow();
-
-        // "Clear" the previous engine state
         uci.uciNewGame();
-
-        // Setting the position
         uci.positionFen("rnbqk3/pp6/5b2/2pp1p1p/1P3P1P/5N2/P1PPP1P1/RNBQKB2 b Qq - 0 14");
-
-        // Retrieving the best move after analysing the game with a depth of
+        var result10depth = uci.bestMove(10).getResultOrThrow();
+        System.out.println("Best move after analysing 10 moves deep: " + result10depth);
+        var result10seconds = uci.bestMove(10_000l).getResultOrThrow();
+        System.out.println("Best move after analysing for 10 seconds: " + result10seconds);
         uci.close();
 
 //        UCIResponse<EngineInfo> response = uci.getEngineInfo();
