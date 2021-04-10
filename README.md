@@ -66,7 +66,13 @@ An `UCIResponse<T>` can only throw a `UCIRuntimeException`. This class has the f
 - `UCIUnknownCommandException` - when the server doesn't understand the command the client has sent;
 - `UCIParsingException` - when the engine sends output that the client doesn't understand;
 
-## Retrieving the engine information:
+All commands support custom timeout. Usually this is the last parametere of the command function:
+
+```java
+var response = uci.<some_command>(args, long timeout);
+```
+
+## Retrieving the engine information
 
 The method for obtaining the engine information (the current engine name and supported engine options) is `UCIResponse<EngineInfo> = uci.getEngineInfo()`.
 
@@ -143,3 +149,6 @@ Supported engine options:
 	SyzygyProbeLimit
 		SpinEngineOption{name='SyzygyProbeLimit', defaultValue=7, min=0, max=7}
 ```
+
+## Setting an option
+
