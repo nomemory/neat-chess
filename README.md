@@ -151,3 +151,27 @@ After the position has been set on the board, to retrieve the best move:
 Let's take the example the following position:
 
 <img src="https://github.com/nomemory/neat-chess/blob/main/assets/position01.png" width="30%"/>
+
+The corresponding FEN for the position is:
+
+```
+rnbqk3/pp6/5b2/2pp1p1p/1P3P1P/5N2/P1PPP1P1/RNBQKB2 b Qq - 0 14
+```
+
+The code that determines what is the best move is:
+
+```java
+var uci = new UCI(5000l); // default timeout 5 seconds
+uci.startStockfish();
+uci.uciNewGame();
+
+uci.positionFen("rnbqk3/pp6/5b2/2pp1p1p/1P3P1P/5N2/P1PPP1P1/RNBQKB2 b Qq - 0 14");
+
+var result10depth = uci.bestMove(10).getResultOrThrow();
+System.out.println("Best move after analysing 10 moves deep: " + result10depth);
+
+var result10seconds = uci.bestMove(10_000l).getResultOrThrow();
+System.out.println("Best move after analysing for 10 seconds: " + result10seconds);
+
+uci.close();
+```
