@@ -29,10 +29,6 @@ public class InfoDepthParser extends AbstractParser<Move> {
         // group(5) => <num>
         // group(6) => move
         // group(7) => continuation
-        System.out.println(line);
-        for(int i = 1; i < matcher.groupCount(); i++) {
-            System.out.println(i + ":" + matcher.group(i));
-        }
         var depth = parseInt(matcher.group(1));
         var multipv = parseInt(matcher.group(2));
         var strength = matcher.group(3);
