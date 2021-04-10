@@ -158,7 +158,7 @@ The corresponding FEN for the position is:
 rnbqk3/pp6/5b2/2pp1p1p/1P3P1P/5N2/P1PPP1P1/RNBQKB2 b Qq - 0 14
 ```
 
-The code that determines what is the best move is:
+The code that determines what the best move is:
 
 ```java
 var uci = new UCI(5000l); // default timeout 5 seconds
