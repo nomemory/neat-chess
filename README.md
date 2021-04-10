@@ -175,3 +175,25 @@ System.out.println("Best move after analysing for 10 seconds: " + result10second
 
 uci.close();
 ```
+
+## Analysing a position
+
+Analysing the best N lines for a given FEN position is very similar to the code for finding what is best move. 
+
+The methods for finding out what are the best lines are:
+- `UCIResponse<Analysis> analysis(long moveTime, long timeout)` - to analyse for a given depth (e.g.: 18 moves deep);
+- `UCIResponse<Analysis> analysis(long moveTime)`
+- `UCIResponse<Analysis> analysis(int depth, long timeout)` - to analyse for a fixed amount of time (e.g.: 10000l - 10 seconds);
+- `UCIResponse<Analysis> analysis(int depth)` 
+
+> By default Stockfish analyses only one line, so if you want to analyse multiple lines in parallel, you need to set `MultiPV`: `uci.setOption("MultiPV", "10", 3000l)`
+
+Let's take for example the following position:
+
+<img src="https://github.com/nomemory/neat-chess/blob/main/assets/position02.png" width="30%"/>
+
+The corresponding FEN for the position is:
+
+```
+r1bqkb1r/2pp1ppp/p1n2n2/1p2p3/4P3/1B3N2/PPPP1PPP/RNBQK2R w KQkq - 2 6
+```
