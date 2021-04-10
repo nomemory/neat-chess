@@ -167,4 +167,11 @@ uci.setOption("MultiPV", "10", 3000l).getResultOrThrow(); // custome timeout 3 s
 uci.close();
 ```
 
-##
+## Getting the best move for a position
+
+If you use the engine to analyse various positions that are not part of the same game, it's recommended to call the `uciNewGame()` method first before so that the "engine" clean it's cache.
+
+An UCI engine understands [FEN notations](https://en.wikipedia.org/wiki/Forsyth%E2%80%93Edwards_Notation), so the method to make the engine aware of the position he needs to analyse is: 
+- `UCIResponse<List<String>> positionFen(String fen, long timeout)`
+- `UCIResponse<List<String>> positionFen(String fen)`
+
