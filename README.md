@@ -6,7 +6,7 @@ Tested with [Stockfish 13](https://stockfishchess.org/blog/2021/stockfish-13/).
 
 ## Starting / Closing the client
 
-By using the `startStockfish()` method, the client assumes that Stockfish is already installed on the system, and it's accesible in `$PATH` as `stockfish`.
+By using the `startStockfish()` method, the client assumes that Stockfish is already installed on the system, and it's accesible in `$PATH` as `"stockfish"`.
 
 ```java
 var uci = new UCI();
@@ -27,6 +27,13 @@ You can configure the global default timeout to a different value:
 ```java
 var uci = new UCI(5000l); // default timeout 5 seconds
 uci.startStockfish();
-uci.close();
 ```
+
+If the client commands exceed the timeout interval an unchecked `UCITimeoutException` is thrown. But more on that in the next sections.
+
+To retrieve the `defaultTimeout` simply call: `var timeout = uci.getDefaultTimeout()`.
+
+To close the client simply: `uci.close();`.
+
+## Commands
 
