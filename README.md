@@ -13,9 +13,10 @@ var uci = new UCI();
 uci.startStockfish();
 ```        
 
-To test it with other engines the `start()` method can be used:
+Using `start(String cmd)` **neat-chess** can be tested with other chess engines:
 
 ```java
+// leela chess 
 var uci = new UCI();
 uci.start("lc0");
 ```
@@ -33,7 +34,18 @@ If the client commands exceed the timeout interval an unchecked `UCITimeoutExcep
 
 To retrieve the `defaultTimeout` simply call: `var timeout = uci.getDefaultTimeout()`.
 
-To close the client simply: `uci.close();`.
+To close the client simply call: `uci.close();`.
 
 ## Commands
+
+Most commands respond with an `UCIResponse<T>` object. This class wraps a possible exception, and the actual result value.
+
+The common idiom is:
+
+```java
+var response = uci.<some_command>;
+var result = response.getResultOrThrow();
+```
+
+The response 
 
