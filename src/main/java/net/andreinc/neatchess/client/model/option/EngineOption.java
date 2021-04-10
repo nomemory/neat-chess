@@ -1,4 +1,4 @@
-package net.andreinc.neatchess.model.option;
+package net.andreinc.neatchess.client.model.option;
 
 public abstract class EngineOption<T> {
 

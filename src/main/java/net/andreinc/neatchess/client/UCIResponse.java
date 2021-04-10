@@ -1,11 +1,9 @@
 package net.andreinc.neatchess.client;
 
-import net.andreinc.neatchess.exception.UCIRuntimeException;
-
 public class UCIResponse<T> {
 
     private T result;
-    private Throwable exception;
+    private RuntimeException exception;
 
     public UCIResponse(T result) {
         this.result = result;
@@ -14,21 +12,18 @@ public class UCIResponse<T> {
     protected UCIResponse() {
     }
 
-    public UCIResponse(T result, Throwable exception) {
+    public UCIResponse(T result, RuntimeException exception) {
         this(result);
         this.exception = exception;
     }
 
     public T getResult() {
+        return this.result;
+    }
+
+    public T getResultOrThrow() {
         if (!success()) {
-            if (exception instanceof RuntimeException) {
-                exception.printStackTrace();
-                throw (RuntimeException) exception;
-            }
-            else {
-                exception.printStackTrace();
-                throw new UCIRuntimeException(exception);
-            }
+            throw exception;
         }
         return this.result;
     }
@@ -41,7 +36,7 @@ public class UCIResponse<T> {
         return this.exception;
     }
 
-    protected void setException(Throwable t) {
+    protected void setException(RuntimeException t) {
         this.exception = t;
     }
 

@@ -1,9 +1,9 @@
 package net.andreinc.neatchess.client.processor;
 
-import net.andreinc.neatchess.model.EngineInfo;
-import net.andreinc.neatchess.model.option.EngineOption;
-import net.andreinc.neatchess.parser.EngineNameParser;
-import net.andreinc.neatchess.parser.EngineOptionParser;
+import net.andreinc.neatchess.client.model.EngineInfo;
+import net.andreinc.neatchess.client.model.option.EngineOption;
+import net.andreinc.neatchess.client.parser.EngineNameParser;
+import net.andreinc.neatchess.client.parser.EngineOptionParser;
 
 import java.util.List;
 

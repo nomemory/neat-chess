@@ -1,6 +1,6 @@
-package net.andreinc.neatchess.parser;
+package net.andreinc.neatchess.client.parser;
 
-import net.andreinc.neatchess.model.option.*;
+import net.andreinc.neatchess.client.model.option.*;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

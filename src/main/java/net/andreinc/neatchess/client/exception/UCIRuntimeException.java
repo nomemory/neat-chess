@@ -1,4 +1,4 @@
-package net.andreinc.neatchess.exception;
+package net.andreinc.neatchess.client.exception;
 
 public class UCIRuntimeException extends RuntimeException {
     public UCIRuntimeException(Throwable cause) {

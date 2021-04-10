@@ -1,6 +1,6 @@
-package net.andreinc.neatchess.parser;
+package net.andreinc.neatchess.client.parser;
 
-import net.andreinc.neatchess.exception.UCIParsingExcpetion;
+import net.andreinc.neatchess.client.exception.UCIParsingException;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -26,6 +26,6 @@ public abstract class AbstractParser<T> {
         if (matcher.matches()) {
             return doParse(line, matcher);
         }
-        throw new UCIParsingExcpetion(line);
+        throw new UCIParsingException(line);
     }
 }

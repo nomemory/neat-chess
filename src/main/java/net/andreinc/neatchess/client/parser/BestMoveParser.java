@@ -1,6 +1,6 @@
-package net.andreinc.neatchess.parser;
+package net.andreinc.neatchess.client.parser;
 
-import net.andreinc.neatchess.model.BestMove;
+import net.andreinc.neatchess.client.model.BestMove;
 import java.util.regex.Matcher;
 
 public class BestMoveParser extends AbstractParser<BestMove> {

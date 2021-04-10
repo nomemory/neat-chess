@@ -1,17 +1,19 @@
-package net.andreinc.neatchess.model;
+package net.andreinc.neatchess.client.model;
 
 import java.util.Arrays;
 
 public class Move implements Comparable<Move> {
 
     private final String lan;
-    private final double score;
+    private final Strength strength;
     private final int pv;
+    private final int depth;
     private String[] continuation;
 
-    public Move(String lan, double score, int pv, String continuation[]) {
+    public Move(String lan, int depth, Strength strength, int pv, String continuation[]) {
         this.lan = lan;
-        this.score = score;
+        this.depth = depth;
+        this.strength = strength;
         this.pv = pv;
         this.continuation = continuation;
     }
@@ -20,8 +22,8 @@ public class Move implements Comparable<Move> {
         return lan;
     }
 
-    public double getScore() {
-        return score;
+    public Strength getStrength() {
+        return strength;
     }
 
     public Integer  getPv() {
@@ -32,12 +34,17 @@ public class Move implements Comparable<Move> {
         return continuation;
     }
 
+    public int getDepth() {
+        return depth;
+    }
+
     @Override
     public String toString() {
         return "Move{" +
                 "lan='" + lan + '\'' +
-                ", score=" + score +
+                ", strength=" + strength +
                 ", pv=" + pv +
+                ", depth=" + depth +
                 ", continuation=" + Arrays.toString(continuation) +
                 '}';
     }

@@ -1,4 +1,4 @@
-package net.andreinc.neatchess.model.option;
+package net.andreinc.neatchess.client.model.option;
 
 public class CheckEngineOption extends EngineOption<Boolean> {
     public CheckEngineOption(String name, Boolean defaultValue) {

@@ -1,4 +1,4 @@
-package net.andreinc.neatchess.model;
+package net.andreinc.neatchess.client.model;
 
 public class BestMove {
 

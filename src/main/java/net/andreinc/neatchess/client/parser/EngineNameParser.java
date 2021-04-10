@@ -1,4 +1,4 @@
-package net.andreinc.neatchess.parser;
+package net.andreinc.neatchess.client.parser;
 
 import java.util.regex.Matcher;
 

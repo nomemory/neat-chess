@@ -1,8 +1,8 @@
 package net.andreinc.neatchess.client.processor;
 
-import net.andreinc.neatchess.exception.UCIRuntimeException;
-import net.andreinc.neatchess.model.BestMove;
-import net.andreinc.neatchess.parser.BestMoveParser;
+import net.andreinc.neatchess.client.exception.UCIRuntimeException;
+import net.andreinc.neatchess.client.model.BestMove;
+import net.andreinc.neatchess.client.parser.BestMoveParser;
 
 import java.util.List;
 

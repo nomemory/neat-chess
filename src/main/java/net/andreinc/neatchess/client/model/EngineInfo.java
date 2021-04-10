@@ -1,6 +1,6 @@
-package net.andreinc.neatchess.model;
+package net.andreinc.neatchess.client.model;
 
-import net.andreinc.neatchess.model.option.EngineOption;
+import net.andreinc.neatchess.client.model.option.EngineOption;
 
 import java.util.Map;
 
