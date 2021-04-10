@@ -65,3 +65,81 @@ An `UCIResponse<T>` can only throw a `UCIRuntimeException`. This class has the f
 - `UCIUncheckedIOException` - when the communication with the engine process fails;
 - `UCIUnknownCommandException` - when the server doesn't understand the command the client has sent;
 - `UCIParsingException` - when the engine sends output that the client doesn't understand;
+
+## Retrieving the engine information:
+
+The method for obtaining the engine information (the current engine name and supported engine options) is `UCIResponse<EngineInfo> = uci.getEngineInfo()`.
+
+Example:
+
+```java
+var uci = new UCI(5000l); // default timeout 5 seconds
+uci.startStockfish();
+UCIResponse<EngineInfo> response = uci.getEngineInfo();
+if (response.success()) {
+    // Engine name
+    EngineInfo engineInfo = response.getResult();
+    System.out.println("Engine name:" + engineInfo.getName());
+    // Supported engine options
+    System.out.println("Supported engine options:");
+    Map<String, EngineOption> engineOptions = engineInfo.getOptions();
+    engineOptions.forEach((key, value) -> {
+        System.out.println("\t" + key);
+        System.out.println("\t\t" + value);
+    });
+}
+uci.close();
+```
+
+Output:
+
+```
+Engine name:Stockfish 13
+Supported engine options:
+	Slow Mover
+		SpinEngineOption{name='Slow Mover', defaultValue=100, min=10, max=1000}
+	SyzygyProbeDepth
+		SpinEngineOption{name='SyzygyProbeDepth', defaultValue=1, min=1, max=100}
+	Analysis Contempt
+		ComboEngineOption{possibleOptions=null, name='Analysis Contempt', defaultValue=Both}
+	nodestime
+		SpinEngineOption{name='nodestime', defaultValue=0, min=0, max=10000}
+	Syzygy50MoveRule
+		CheckEngineOption{name='Syzygy50MoveRule', defaultValue=true}
+	SyzygyPath
+		StringEngineOption{name='SyzygyPath', defaultValue=<empty>}
+	Hash
+		SpinEngineOption{name='Hash', defaultValue=16, min=1, max=33554432}
+	Move Overhead
+		SpinEngineOption{name='Move Overhead', defaultValue=10, min=0, max=5000}
+	UCI_AnalyseMode
+		CheckEngineOption{name='UCI_AnalyseMode', defaultValue=false}
+	UCI_LimitStrength
+		CheckEngineOption{name='UCI_LimitStrength', defaultValue=false}
+	Threads
+		SpinEngineOption{name='Threads', defaultValue=1, min=1, max=512}
+	MultiPV
+		SpinEngineOption{name='MultiPV', defaultValue=1, min=1, max=500}
+	UCI_Chess960
+		CheckEngineOption{name='UCI_Chess960', defaultValue=false}
+	Ponder
+		CheckEngineOption{name='Ponder', defaultValue=false}
+	EvalFile
+		StringEngineOption{name='EvalFile', defaultValue=nn-62ef826d1a6d.nnue}
+	UCI_ShowWDL
+		CheckEngineOption{name='UCI_ShowWDL', defaultValue=false}
+	UCI_Elo
+		SpinEngineOption{name='UCI_Elo', defaultValue=1350, min=1350, max=2850}
+	Debug Log File
+		StringEngineOption{name='Debug Log File', defaultValue=}
+	Skill Level
+		SpinEngineOption{name='Skill Level', defaultValue=20, min=0, max=20}
+	Contempt
+		SpinEngineOption{name='Contempt', defaultValue=24, min=-100, max=100}
+	Use NNUE
+		CheckEngineOption{name='Use NNUE', defaultValue=true}
+	Clear Hash
+		ButtonEngineOption{name='Clear Hash', defaultValue=}
+	SyzygyProbeLimit
+		SpinEngineOption{name='SyzygyProbeLimit', defaultValue=7, min=0, max=7}
+```
