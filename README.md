@@ -40,12 +40,20 @@ To close the client simply call: `uci.close();`.
 
 Most commands respond with an `UCIResponse<T>` object. This class wraps a possible exception, and the actual result value.
 
-The common idiom is:
+The most common idiom(s) is/are:
 
 ```java
-var response = uci.<some_command>;
+var response = uci.<some_command>(...);
 var result = response.getResultOrThrow();
+// do something with the result
 ```
 
-The response 
+or
 
+```java
+var response = uci.<some_command>(...);
+if (response.succes()) {
+  var result = response.getResult();
+  // do something with the result
+}
+```
