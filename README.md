@@ -155,7 +155,7 @@ Supported engine options:
 ## Setting an option
 
 For changing an option of the engine you can use the following methods:
-- `UCIResponse<List<String>> uci.setOption(String optionName, String value, long timeout)`
+- `UCIResponse<List<String>> setOption(String optionName, String value, long timeout)`
 - `UCIResponse<List<String>> setOption(String optionName, String value)`
 
 For example, modifying the `MultiPV` option to `10` is as simple as:
