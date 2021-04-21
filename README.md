@@ -2,6 +2,16 @@ A simple [UCI](https://en.wikipedia.org/wiki/Universal_Chess_Interface) (*Univer
 
 Tested with [Stockfish 13](https://stockfishchess.org/blog/2021/stockfish-13/).
 
+Maven:
+
+```xml
+<dependency>
+  <groupId>net.andreinc</groupId>
+  <artifactId>neatchess</artifactId>
+  <version>1.0</version>
+</dependency>
+```
+
 # Documentation 
 
 ## Starting / Closing the client
