@@ -17,8 +17,8 @@ public class BestMoveParser extends AbstractParser<BestMove> {
 
     @Override
     protected BestMove doParse(String line, Matcher matcher) {
-        var curr = matcher.group(1);
-        var ponder = matcher.group(2);
+        String curr = matcher.group(1);
+        String ponder = matcher.group(2);
         return new BestMove(curr, ponder);
     }
 }

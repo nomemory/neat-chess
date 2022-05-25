@@ -62,7 +62,7 @@ public class UCI {
     }
 
     public void start(String cmd) {
-        var pb = new ProcessBuilder(cmd);
+        ProcessBuilder pb = new ProcessBuilder(cmd);
         try {
             this.process = pb.start();
             this.reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
@@ -121,7 +121,7 @@ public class UCI {
 
         CompletableFuture<UCIResponse<T>> processorFuture = command.handle((list, ex) -> {
             try {
-                var result = commandProcessor.apply(list);
+                T result = commandProcessor.apply(list);
                 return new UCIResponse<>(result, (UCIRuntimeException) ex);
             } catch (RuntimeException e) {
                 return new UCIResponse<T>(null, new UCIRuntimeException(e));

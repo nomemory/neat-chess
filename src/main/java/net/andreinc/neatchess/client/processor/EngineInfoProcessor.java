@@ -17,13 +17,13 @@ public class EngineInfoProcessor extends UCICommandProcessor<EngineInfo> {
 
     @Override
     public EngineInfo process(List<String> list) {
-        final var engineName =
+        final String engineName =
                 list.stream()
                         .filter(engineNameParser::matches)
                         .map(engineNameParser::parse)
                         .findFirst()
                         .orElse("<<Unknown>>");
-        final var options =
+        final java.util.Map<String, EngineOption> options =
                 list.stream()
                         .filter(engineOptionParser::matches)
                         .map(engineOptionParser::parse)

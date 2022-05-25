@@ -14,7 +14,7 @@ public class AnalysisProcessor extends UCICommandProcessor<Analysis> {
     protected static InfoDepthParser infoDepthParser = new InfoDepthParser();
     @Override
     public Analysis process(List<String> list) {
-        var map =
+        TreeMap<Integer, Move> map =
                 list.stream()
                     .filter(infoDepthParser::matches)
                     .map(infoDepthParser::parse)
