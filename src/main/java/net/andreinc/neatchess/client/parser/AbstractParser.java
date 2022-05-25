@@ -22,7 +22,7 @@ public abstract class AbstractParser<T> {
     protected abstract T doParse(String line, Matcher matcher);
 
     public T parse(String line) {
-        var matcher = pattern.matcher(line);
+        Matcher matcher = pattern.matcher(line);
         if (matcher.matches()) {
             return doParse(line, matcher);
         }
