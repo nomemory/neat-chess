@@ -1,6 +1,6 @@
 package com.mblajet.slickchess.client.parser;
 
-import net.andreinc.neatchess.client.model.option.*;
+import com.mblajet.slickchess.client.model.option.*;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
