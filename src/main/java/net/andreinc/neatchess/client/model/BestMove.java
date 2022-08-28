@@ -1,5 +1,7 @@
 package net.andreinc.neatchess.client.model;
 
+import java.util.Objects;
+
 public class BestMove {
 
     public String current;
@@ -24,5 +26,18 @@ public class BestMove {
                 "current=" + current +
                 ", ponder=" + ponder +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        BestMove bestMove = (BestMove) o;
+        return Objects.equals(current, bestMove.current) && Objects.equals(ponder, bestMove.ponder);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(current, ponder);
     }
 }
