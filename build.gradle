@@ -3,20 +3,24 @@ plugins {
 }
 
 apply plugin: 'java'
-apply plugin: 'maven'
 apply plugin: 'signing'
 
 group = "net.andreinc"
 version = "0.4.7"
 archivesBaseName = "neatchess"
 
-sourceCompatibility = 1.8
+sourceCompatibility = 17
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
+    testImplementation(
+            'org.hamcrest:hamcrest-library:2.2',
+            'org.junit.jupiter:junit-jupiter-api:5.9.0'
+    )
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.0'
 }
 
 task javadocJar(type: Jar) {
@@ -37,46 +41,6 @@ signing {
     sign configurations.archives
 }
 
-uploadArchives {
-    repositories {
-        mavenDeployer {
-            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
-
-            repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
-                authentication(userName: ossrhUsername, password: ossrhPassword)
-            }
-
-            snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
-                authentication(userName: ossrhUsername, password: ossrhPassword)
-            }
-
-            pom.project {
-                name 'neatchess library'
-                packaging 'jar'
-                description "neatchess library"
-                url 'https://github.com/nomemory/neat-chess'
-
-                scm {
-                    connection 'https://github.com/nomemory/neat-chess'
-                    developerConnection 'https://github.com/nomemory/neat-chess'
-                    url 'https://github.com/nomemory/neat-chesss'
-                }
-
-                licenses {
-                    license {
-                        name 'The Apache License, Version 2.0'
-                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-                    }
-                }
-
-                developers {
-                    developer {
-                        id 'nomemory'
-                        name 'nomemory'
-                        email 'gnomemory@yahoo.com'
-                    }
-                }
-            }
-        }
-    }
+test {
+    useJUnitPlatform()
 }
