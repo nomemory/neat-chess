@@ -30,7 +30,9 @@ import static net.andreinc.neatchess.client.breaks.Break.breakOn;
 public class UCI {
 
     private static final String STOCKFISH = "stockfish";
+    private static final String STOCKFISH_WIN = "stockfish.exe";
     private static final String LC0 = "lc0";
+    private static final String LC0_WIN = "lc0.exe";
 
     private static final long DEFAULT_TIMEOUT_VALUE = 60_000l;
 
@@ -54,11 +56,11 @@ public class UCI {
     }
 
     public void startStockfish() {
-        start(STOCKFISH);
+        start(System.getProperty("os.name").startsWith("Windows") ? STOCKFISH_WIN : STOCKFISH);
     }
 
     public void startLc0() {
-        start(LC0);
+        start(System.getProperty("os.name").startsWith("Windows") ? LC0_WIN : LC0);
     }
 
     public void start(String cmd) {
